@@ -27,16 +27,15 @@
         var y = 350;
         var angle = 330;
 
+        var brickx = 100;
+        var bricky = 100;
+        var isbrickdestroyed = false;
+
         function animate() {
             graphics.clear();
 
             graphics.beginFill(0xff0000);
             graphics.drawRect(x, y, 50, 50);
-            graphics.endFill();
-
-            graphics.beginFill(0x0000ff);
-            graphics.drawRect(100, 100, 50, 50);
-
             graphics.endFill();
 
             var radians_angle = angle * (Math.PI/180);
@@ -66,20 +65,29 @@
                 angle = 360 - angle;
             }
 
-            if (x>50 && x < 150 && y < 150 && y > 50) {
-                
-                if (y < 55 || y > 145)
-                {
-                    //if the collision is coming in from the bottom/top
-                    angle = 360 - angle; 
-                }
-                else
-                {
-                    //if the collision is coming in from the left/right
+            if(isbrickdestroyed == false)
+            {
+                graphics.beginFill(0x0000ff);
+                graphics.drawRect(brickx, bricky, 50, 50);
+                graphics.endFill();
 
+                if (x > brickx - 50 && x < brickx + 50 && y < bricky + 50 && y > bricky - 50) {
+                    
+                    if (y < bricky - 45 || y > bricky + 45)
+                    {
+                        //if the collision is coming in from the bottom/top
+                        angle = 360 - angle; 
+                    }
+                    else
+                    {
+                        //if the collision is coming in from the left/right
+                        angle = 180 - angle;
+
+                    }
+                    isbrickdestroyed = true;
                 }
             }
- 
+
             renderer.render(stage);
             requestAnimationFrame(animate);
         }
