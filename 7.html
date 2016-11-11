@@ -27,9 +27,9 @@
         var y = 350;
         var angle = 330;
 
-        var bricks_x = [100, 150, 200, 250];
-        var bricks_y = [100, 150, 250, 250];
-        var bricks_destroyed = [false, false, false, false];
+        var brickx = 100;
+        var bricky = 100;
+        var isbrickdestroyed = false;
 
         function animate() {
             graphics.clear();
@@ -65,29 +65,26 @@
                 angle = 360 - angle;
             }
 
-            for(var i = 0; i < bricks_x.length; i++)
+            if(isbrickdestroyed == false)
             {
-                if(bricks_destroyed[i] == false)
-                {
-                    graphics.beginFill(0x0000ff);
-                    graphics.drawRect(bricks_x[i], bricks_y[i], 50, 50);
-                    graphics.endFill();
+                graphics.beginFill(0x0000ff);
+                graphics.drawRect(brickx, bricky, 50, 50);
+                graphics.endFill();
 
-                    if (x > bricks_x[i] - 50 && x < bricks_x[i] + 50 && y < bricks_y[i] + 50 && y > bricks_y[i] - 50) {
-
-                        if (y < bricks_y[i] - 45 || y > bricks_y[i] + 45)
-                        {
-                            //if the collision is coming in from the bottom/top
-                            angle = 360 - angle;
-                        }
-                        else
-                        {
-                            //if the collision is coming in from the left/right
-                            angle = 180 - angle;
-
-                        }
-                        bricks_destroyed[i] = true;
+                if (x > brickx - 50 && x < brickx + 50 && y < bricky + 50 && y > bricky - 50) {
+                    
+                    if (y < bricky - 45 || y > bricky + 45)
+                    {
+                        //if the collision is coming in from the bottom/top
+                        angle = 360 - angle; 
                     }
+                    else
+                    {
+                        //if the collision is coming in from the left/right
+                        angle = 180 - angle;
+
+                    }
+                    isbrickdestroyed = true;
                 }
             }
 
