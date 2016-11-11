@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>game dev is easy cheese</title>
+
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+            background-color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+	<script src="pixi.min.js"></script>
+	<script>
+        var renderer = PIXI.autoDetectRenderer(400, 400, { backgroundColor: 0xFFFFFF, antialias: true });
+        document.body.appendChild(renderer.view);
+        var stage = new PIXI.Container();
+        var graphics = new PIXI.Graphics();
+        stage.addChild(graphics);
+
+        var x = 0;
+        var direction = "right";
+
+        function animate() {
+            graphics.clear();
+
+            graphics.beginFill(0xff0000);
+            graphics.drawRect(x, 50, 50, 50);
+            graphics.endFill();
+
+            if(direction == "right" && x < 350){
+                x = x + 5;
+                console.log(direction)
+            }
+            else if(direction == "right" && x == 350){
+                x = x - 5;
+                direction = "left"
+                console.log(direction)
+            }
+            else if(direction == "left" && x > 0){
+                x = x - 5;
+                console.log(direction)
+            }
+            else if (direction == "left" && x == 0){
+                x = x + 5;
+                direction = "right"
+                console.log(direction)
+            }
+            else{
+                console.log("same")
+            }
+
+
+            renderer.render(stage);
+            requestAnimationFrame(animate);
+        }
+
+
+
+        animate();
+    </script>
+</body>
+</html>
