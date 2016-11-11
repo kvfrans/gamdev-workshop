@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>game dev is easy cheese</title>
+
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+            background-color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+	<script src="pixi.min.js"></script>
+	<script>
+        var renderer = PIXI.autoDetectRenderer(1500, 800, { backgroundColor: 0xFFFFFF, antialias: true });
+        document.body.appendChild(renderer.view);
+        var stage = new PIXI.Container();
+        var graphics = new PIXI.Graphics();
+        stage.addChild(graphics);
+
+        var x = 50;
+        var y = 50;
+        var angle = 90;
+
+        function animate() {
+            graphics.clear();
+
+            graphics.beginFill(0xff0000);
+            graphics.drawRect(x, y, 50, 50);
+            graphics.endFill();
+
+            var radians_angle = angle * (Math.PI/180);
+
+            x = x + Math.cos(radians_angle);
+            y = y + Math.sin(radians_angle);
+
+            renderer.render(stage);
+            requestAnimationFrame(animate);
+        }
+        animate();
+    </script>
+</body>
+</html>
