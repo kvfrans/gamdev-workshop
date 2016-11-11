@@ -27,9 +27,6 @@
         var y = 350;
         var angle = 330;
 
-        var brickx = 100;
-        var bricky = 100;
-
         function animate() {
             graphics.clear();
 
@@ -38,7 +35,7 @@
             graphics.endFill();
 
             graphics.beginFill(0x0000ff);
-            graphics.drawRect(brickx, bricky, 50, 50);
+            graphics.drawRect(100, 100, 50, 50);
 
             graphics.endFill();
 
@@ -69,9 +66,9 @@
                 angle = 360 - angle;
             }
 
-            if (x > brickx - 50 && x < brickx + 50 && y < bricky + 50 && y > bricky - 50) {
+            if (x>50 && x < 150 && y < 150 && y > 50) {
                 
-                if (y < bricky - 45 || y > bricky + 45)
+                if (y < 55 || y > 145)
                 {
                     //if the collision is coming in from the bottom/top
                     angle = 360 - angle; 
