@@ -27,15 +27,21 @@
         var y = 350;
         var angle = 330;
 
-        var bricks_x = [100, 150, 200, 250, 50];
-        var bricks_y = [100, 150, 250, 250, 50];
-        var bricks_destroyed = [false, false, false, false, false];
+        var paddle_x = 50;
+
+        var bricks_x = [100, 150, 200, 250];
+        var bricks_y = [100, 150, 250, 250];
+        var bricks_destroyed = [false, false, false, false];
 
         function animate() {
             graphics.clear();
 
             graphics.beginFill(0xff0000);
             graphics.drawRect(x, y, 50, 50);
+            graphics.endFill();
+
+            graphics.beginFill(0x00ff00);
+            graphics.drawRect(paddle_x, 350, 50, 20);
             graphics.endFill();
 
             var radians_angle = angle * (Math.PI/180);
@@ -94,6 +100,63 @@
             renderer.render(stage);
             requestAnimationFrame(animate);
         }
+
+        function keyboard(keyCode) {
+			var key = {};
+			key.code = keyCode;
+			key.isDown = false;
+			key.isUp = true;
+			key.press = undefined;
+			key.release = undefined;
+			  //The `downHandler`
+			key.downHandler = function(event) {
+			    if (event.keyCode === key.code) {
+			    	if (key.isUp && key.press) key.press();
+			      		key.isDown = true;
+			      		key.isUp = false;
+			    	}
+			    event.preventDefault();
+			};
+
+			  //The `upHandler`
+			key.upHandler = function(event) {
+			    if (event.keyCode === key.code) {
+			      	if (key.isDown && key.release) key.release();
+			      		key.isDown = false;
+			      		key.isUp = true;
+			    	}
+			    event.preventDefault();
+			};
+
+
+
+			  //Attach event listeners
+			window.addEventListener(
+			    "keydown", key.downHandler.bind(key), false
+			);
+		  window.addEventListener(
+			    "keyup", key.upHandler.bind(key), false
+			);
+	  		return key;
+		}
+
+		var aKey = keyboard(65);
+		aKey.press = function() {
+			paddle_x -= 3;
+		};
+		aKey.release = function() {
+			console.log("a released")
+		};
+
+		var dKey = keyboard(68);
+		dKey.press = function() {
+			paddle_x += 3;
+		};
+		dKey.release = function() {
+			console.log("d released")
+		};
+
+
         animate();
     </script>
 </body>
